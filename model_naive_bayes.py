@@ -12,21 +12,27 @@ class DiabetesNaiveBayes:
         """
         Train the model on the provided data.
         """
-        # TODO: Fit the self.model using X_train and y_train
-        pass
+        # Fitting the model to the training data
+        self.model.fit(X_train, y_train)
 
     def predict(self, X_test):
         """
         Make predictions on the test set.
         """
-        # TODO: Return predictions using self.model.predict(X_test)
-        pass
+        # Generating predictions
+        return self.model.predict(X_test)
 
     def evaluate(self, y_test, y_pred):
         """
         Print accuracy and classification report.
+        Returns accuracy float for comparison.
         """
-        # TODO: Calculate accuracy using accuracy_score
-        # TODO: Print classification_report and confusion_matrix
-        print("--- Naive Bayes Performance ---")
-        pass
+        accuracy = accuracy_score(y_test, y_pred)
+        
+        print(f"Accuracy Score: {accuracy:.4f}")
+        print("\nConfusion Matrix:")
+        print(confusion_matrix(y_test, y_pred))
+        print("\nClassification Report:")
+        print(classification_report(y_test, y_pred))
+        
+        return accuracy

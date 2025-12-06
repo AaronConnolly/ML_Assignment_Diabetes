@@ -5,29 +5,40 @@ class DiabetesRandomForest:
     def __init__(self):
         """
         Initialize the Random Forest model. 
-        You can adjust n_estimators or max_depth here if needed.
         """
-        self.model = RandomForestClassifier(random_state=42)
+        # We use n_estimators=100 (100 trees) which is a standard default.
+        # random_state=42 ensures the trees are built the same way every time its run.
+        self.model = RandomForestClassifier(n_estimators=100, random_state=42)
 
     def train(self, X_train, y_train):
         """
         Train the model on the provided data.
         """
-        # TODO: Fit the self.model using X_train and y_train
-        pass
+        # Fits the 100 decision trees to your training data
+        self.model.fit(X_train, y_train)
 
     def predict(self, X_test):
         """
         Make predictions on the test set.
         """
-        # TODO: Return predictions using self.model.predict(X_test)
-        pass
+        # Aggregates the votes from all 100 trees to decide the class
+        return self.model.predict(X_test)
 
     def evaluate(self, y_test, y_pred):
         """
         Print accuracy and classification report.
+        Returns accuracy float for comparison in main.py.
         """
-        # TODO: Calculate accuracy using accuracy_score
-        # TODO: Print classification_report and confusion_matrix
         print("--- Random Forest Performance ---")
-        pass
+        
+        # Calculate standard accuracy
+        accuracy = accuracy_score(y_test, y_pred)
+        
+        print(f"Accuracy Score: {accuracy:.4f}")
+        print("\nConfusion Matrix:")
+        print(confusion_matrix(y_test, y_pred))
+        print("\nClassification Report:")
+        print(classification_report(y_test, y_pred))
+        
+        # Return this value so main.py can compare it against Naive Bayes
+        return accuracy
